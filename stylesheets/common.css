@@ -1,0 +1,33 @@
+.body {
+}
+
+.header {
+}
+.logo {
+}
+.page_link {
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+.top {
+}
+.h1 {
+}
+.p {
+}
+
+.middle {
+  display: flex;
+  justify-content: center;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.footer {
+}

@@ -15,18 +15,31 @@ loop do
   request = client.gets
   # クライアントから送信されたリクエストデータを1行読み取る
   request_path = request.split[1]
-
-  content = case request_path
-  when "/"
-    File.read(File.join("views", "top.html"))
-  when "/index"
-    File.read(File.join("views", "index.html"))
-  when "/edit"
-    File.read(File.join("views", "edit.html"))
-  when "/show"
-    File.read(File.join("views", "show.html"))
-  else
-    "<html><body><h1>404 Not Found</h1></body></html>"
+  
+  begin
+    content = case request_path
+    when "/"
+      File.read(File.join("views", "top.html"))
+    when "/index"
+      File.read(File.join("views", "index.html"))
+    when "/edit"
+      File.read(File.join("views", "edit.html"))
+    when "/show"
+      File.read(File.join("views", "show.html"))
+    when "/stylesheets/common.css"
+      response = "HTTP/1.1 200 OK\r\n"
+      response += "Content-Type: text/css\r\n"
+      response += "\r\n"
+      response += File.read("stylesheets/common.css")
+      client.print response
+      client.close
+      next
+    else
+      "<html><body><h1>404 Not Found</h1></body></html>"
+    end
+  rescue Errno::ENOENT
+    status_code = '404 Not Found'
+    content = "<html><body><h1>404 Not Found</h1></body></html>"
   end
 
   # HTTPレスポンスを構築
