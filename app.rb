@@ -23,7 +23,7 @@ loop do
     File.read("views/index.html")
   when "/edit"
     File.read("views/edit.html")
-  when "show"
+  when "/show"
     File.read("views/show.html")
   else
     "<html><body><h1>404 Not Found</h1></body></html>"
