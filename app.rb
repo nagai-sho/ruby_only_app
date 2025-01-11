@@ -14,12 +14,26 @@ loop do
   # → クライアントからの接続を受け入れる
   request = client.gets
   # クライアントから送信されたリクエストデータを1行読み取る
+  request_path = request.split[1]
+
+  content = case request_path
+  when "/"
+    File.read("views/top.html")
+  when "/index"
+    File.read("views/index.html")
+  when "/edit"
+    File.read("views/edit.html")
+  when "show"
+    File.read("views/show.html")
+  else
+    "<html><body><h1>404 Not Found</h1></body></html>"
+  end
 
   # HTTPレスポンスを構築
   response = "HTTP/1.1 200 OK\r\n"
   response += "Content-Type: text/html\r\n"
   response += "\r\n"
-  response += "<html><body><h1>Hello, Ruby!</h1></body></html>"
+  response += content
 
   client.print response
   client.close
