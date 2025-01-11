@@ -18,13 +18,13 @@ loop do
 
   content = case request_path
   when "/"
-    File.read("views/top.html")
+    File.read(File.join("views", "top.html"))
   when "/index"
-    File.read("views/index.html")
+    File.read(File.join("views", "index.html"))
   when "/edit"
-    File.read("views/edit.html")
+    File.read(File.join("views", "edit.html"))
   when "/show"
-    File.read("views/show.html")
+    File.read(File.join("views", "show.html"))
   else
     "<html><body><h1>404 Not Found</h1></body></html>"
   end
